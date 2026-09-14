@@ -299,7 +299,6 @@ body:not(.recursos-listos) .escenario{opacity:0;visibility:hidden}
   transform-origin:50% 55%;
   will-change:transform;
 }
-.sitio.revelando-nubes .cloud-shape{animation:none}
 
 .sitio.animada .cloud-card:nth-of-type(even) .cloud-shape{
   animation-delay:-4s;
@@ -708,23 +707,16 @@ function mostrarDetalles(){
     return;
   }
 
-  sitio.classList.add("revelando-nubes");
-  nubesDetalle.forEach((nube, indice) => {
+  nubesDetalle.forEach((nube) => {
     const forma = nube.querySelector(".cloud-shape");
     const contenido = nube.querySelectorAll(":scope > :not(.cloud-shape)");
     G.set(nube, { autoAlpha: 1 });
-    G.set(forma, {
-      autoAlpha: 0,
-      scale: .82,
-      rotation: indice % 2 === 0 ? -1.4 : 1.4,
-      transformOrigin: "50% 55%"
-    });
+    G.set(forma, { autoAlpha: 0 });
     G.set(contenido, { autoAlpha: 0 });
   });
   const salida = G.timeline({
     onComplete: () => {
       G.set(salidaNubes, { autoAlpha: 0 });
-      sitio.classList.remove("revelando-nubes");
     }
   });
 
@@ -752,10 +744,8 @@ function mostrarDetalles(){
 
     salida.to(forma, {
       autoAlpha: 1,
-      scale: 1,
-      rotation: 0,
       duration: 1.2,
-      ease: "expo.out"
+      ease: "power2.out"
     }, inicio).to(contenido, {
       autoAlpha: 1,
       duration: .72,
