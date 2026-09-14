@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Baby Shower · Un pequeño osito está en camino</title>
+<meta name="description" content="Invitación al baby shower. Confirma tu asistencia por WhatsApp.">
+<meta property="og:title" content="Hay una invitación especial para ti…">
+<meta property="og:description" content="Un pequeño osito está en camino. Toca para abrir el sobre.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Nunito+Sans:opsz,wght@6..12,400;6..12,500;6..12,600;6..12,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --cielo-alto:#eceff4; --cielo-medio:#f3eee9; --cielo-bajo:#f7f1e8;
+  --papel:rgba(255,252,247,.66); --borde:rgba(180,158,134,.22);
+  --tinta:#7b6551; --tinta-suave:#8e7962; --cacao:#8a6c50; --tostado:#b0906f;
+  --sombra:0 18px 40px -22px rgba(122,94,66,.45);
+  --sombra-suave:0 10px 26px -18px rgba(122,94,66,.4);
+  --col:min(100%,430px);
+  --serif:"Nunito Sans","Segoe UI",sans-serif;
+  --display:"Mali","Trebuchet MS",cursive;
+  --script:"Mali","Segoe Print",cursive;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--serif);color:var(--tinta);background:var(--cielo-bajo);
+  min-height:100dvh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body.bloqueado{overflow:hidden;height:100dvh}
+body.portada-activa{overflow:hidden;height:100dvh}
+img{max-width:100%;display:block}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--tostado);outline-offset:3px;border-radius:10px}
+
+/* ===================== CIELO BASE ===================== */
+.cielo{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(120% 70% at 50% 0%, #e9eef4 0%, rgba(233,238,244,0) 62%),
+    radial-gradient(90% 50% at 12% 22%, rgba(226,233,241,.75) 0%, rgba(226,233,241,0) 60%),
+    linear-gradient(180deg,var(--cielo-alto) 0%,var(--cielo-medio) 42%,var(--cielo-bajo) 78%,#f8f2ea 100%);}
+.nube{position:absolute;border-radius:46% 54% 48% 52%;background:rgba(255,253,249,.78);
+  filter:blur(13px);opacity:.55;animation:deriva-fondo 18s cubic-bezier(.45,0,.55,1) infinite alternate}
+.nube::before,.nube::after{content:"";position:absolute;display:block;border-radius:50%;background:inherit}
+.nube::before{width:55%;height:125%;left:10%;top:-48%}
+.nube::after{width:46%;height:105%;right:8%;top:-32%}
+.n1{width:46vmin;height:21vmin;left:-12vmin;top:12vmin}
+.n2{width:40vmin;height:18vmin;right:-9vmin;top:31vmin;opacity:.48;animation-delay:-7s}
+.n3{width:52vmin;height:23vmin;left:-12vmin;bottom:21vmin;opacity:.46;animation-delay:-11s}
+.n4{width:48vmin;height:21vmin;right:-11vmin;bottom:8vmin;opacity:.5;animation-delay:-4s}
+@keyframes deriva-fondo{
+  from{transform:translate3d(-5px,2px,0) scale(.98)}
+  to{transform:translate3d(8px,-7px,0) scale(1.03)}
+}
+.banda-nubes{position:absolute;left:50%;transform:translateX(-50%);bottom:-2%;
+  width:max(100%,760px);opacity:.85}
+
+/* ===================== ESCENARIO / CÁMARA ===================== */
+.escenario{position:fixed;inset:0;z-index:60;overflow:hidden;
+  transition:opacity .8s ease,visibility .8s}
+.escenario.fuera{opacity:0;visibility:hidden;pointer-events:none}
+
+/* capas de nubes que corren hacia abajo = la cámara sube */
+.viaje{position:absolute;inset:-30% -20%;pointer-events:none;opacity:0;
+  transition:opacity 1s ease}
+.viaje-atras{z-index:10}
+.viaje-frente{z-index:40}
+.escenario.ascenso .viaje{opacity:1}
+.capa{position:absolute;inset:0}
+.capa i{position:absolute;display:block;border-radius:50%;background:#fffdf9}
+.capa-lejos{filter:blur(9px);opacity:.5}
+.capa-media{filter:blur(16px);opacity:.72}
+.capa-cerca{filter:blur(34px);opacity:.85}
+.escenario.ascenso .capa-lejos{animation:caer 5.4s linear infinite}
+.escenario.ascenso .capa-media{animation:caer 3.1s linear infinite}
+.escenario.ascenso .capa-cerca{animation:caer 1.9s linear infinite}
+@keyframes caer{from{transform:translate3d(0,-46%,0)}to{transform:translate3d(0,46%,0)}}
+
+/* destellos */
+.chispa{position:absolute;width:6px;height:6px;border-radius:50%;background:#fff;
+  box-shadow:0 0 8px 3px rgba(255,246,225,.9);animation:titilar 3.4s ease-in-out infinite}
+.estrella{position:absolute;width:22px;opacity:.85;animation:flotar 7s ease-in-out infinite}
+@keyframes flotar{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-12px) rotate(4deg)}}
+@keyframes titilar{0%,100%{opacity:.15;transform:scale(.6)}50%{opacity:1;transform:scale(1)}}
+
+/* textos del intro */
+.intro-titulo{position:absolute;left:50%;top:clamp(22px,9vh,74px);transform:translateX(-50%);
+  width:min(86vw,360px);margin:0;text-align:center;
+  font-family:var(--display);font-size:clamp(26px,7.4vw,34px);line-height:1.28;
+  font-style:normal;font-weight:600;color:var(--cacao);
+  transition:opacity .5s ease,transform .6s ease;z-index:45}
+.intro-pie{position:absolute;left:50%;bottom:clamp(24px,8vh,64px);transform:translateX(-50%);
+  width:min(86vw,320px);margin:0;text-align:center;color:var(--tinta-suave);
+  font-size:clamp(17px,4.6vw,20px);line-height:1.45;transition:opacity .45s ease;z-index:45}
+.chevron{display:block;margin:6px auto 0;width:26px;animation:rebote 1.9s ease-in-out infinite}
+@keyframes rebote{0%,100%{transform:translateY(0);opacity:.75}50%{transform:translateY(7px);opacity:1}}
+.escenario.arranco .intro-titulo{opacity:0;transform:translate(-50%,-10px)}
+.escenario.arranco .intro-pie{opacity:0}
+
+/* ===================== LA ESCENA DEL SOBRE ===================== */
+.escena-wrap{position:absolute;inset:0;display:grid;place-items:center;z-index:20;pointer-events:none}
+.escena{position:relative;width:min(80vw,320px);pointer-events:auto}
+
+.carta{position:relative;display:block;width:100%;background:none;border:0;padding:0;
+  cursor:pointer;-webkit-tap-highlight-color:transparent}
+.sobre{width:100%;display:block;filter:drop-shadow(0 26px 30px rgba(140,112,84,.26))}
+.sorpresa{position:absolute;left:0;right:0;top:27%;text-align:center;pointer-events:none;
+  font-family:var(--script);font-weight:600;color:#a98a6b;
+  font-size:clamp(21px,6.2vw,27px);text-shadow:0 1px 0 rgba(255,255,255,.6)}
+.flotar-sobre{animation:mecer 6s ease-in-out infinite}
+@keyframes mecer{0%,100%{transform:translateY(0) rotate(-.6deg)}50%{transform:translateY(-10px) rotate(.6deg)}}
+
+/* el globo sube desde el borde inferior y aterriza en la portada */
+.riser{position:fixed;z-index:24;pointer-events:none;transform-origin:50% 20%;
+  will-change:transform;opacity:0}
+.swing{transform-origin:50% 8%}
+.riser .globo-oso{filter:drop-shadow(0 22px 26px rgba(130,105,80,.22))}
+
+/* ===================== SITIO ===================== */
+.sitio{position:relative;z-index:1;width:var(--col);margin:0 auto;
+  padding:0 18px calc(30px + env(safe-area-inset-bottom));
+  opacity:0;transition:opacity .9s ease}
+.sitio.visible{opacity:1}
+.portada{min-height:100dvh;text-align:center;padding:clamp(18px,3vh,30px) 0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center}
+.portada[hidden]{display:none}
+.globo-oso{width:min(78%,310px);margin:0 auto}
+.sitio.animada .globo-oso,.escenario.fuera .riser .globo-oso{animation:mecer 7.5s ease-in-out infinite}
+.mensaje-bebe{width:100%;margin:clamp(18px,3vh,28px) auto 16px;padding:0 2px;font-size:clamp(16px,4.4vw,19px);
+  line-height:1.55;font-weight:600;color:var(--tinta-suave)}
+.mensaje-bebe span{display:block;margin-top:10px}
+.mensaje-bebe .antes-titulo{margin-top:12px;font-family:var(--display);font-weight:700;color:var(--tostado)}
+.titulo{margin-top:6px;font-family:var(--display);font-weight:700;color:var(--cacao);
+  font-size:clamp(43px,12vw,58px);letter-spacing:.025em;margin:2px 0 0;line-height:1.08}
+.continuar{position:relative;display:grid;place-items:center;width:64px;height:70px;margin:clamp(18px,3vh,28px) auto 0;
+  padding:0;border:0;background:transparent;color:var(--cacao);cursor:pointer}
+.continuar span{position:absolute;top:0;font-family:var(--display);font-size:14px;font-weight:700;letter-spacing:.03em}
+.continuar svg{position:absolute;left:18px;top:21px;width:28px;
+  animation:guiar-abajo 1.8s cubic-bezier(.45,0,.55,1) infinite}
+.continuar svg:last-child{top:33px;animation-delay:-.28s;opacity:.52}
+@keyframes guiar-abajo{
+  0%{transform:translateY(-9px);opacity:.18}
+  45%{opacity:.9}
+  100%{transform:translateY(12px);opacity:.08}
+}
+.sitio.esperando-nubes > .nube-datos,
+.sitio.esperando-nubes > .tarjeta{opacity:0;visibility:hidden}
+
+.salida-nubes{position:fixed;inset:0;z-index:55;overflow:hidden;pointer-events:none;
+  opacity:0;visibility:hidden}
+.salida-nubes i{position:absolute;display:block;border-radius:48% 52% 46% 54%;
+  background:rgba(255,253,249,.9);filter:blur(13px)}
+.salida-nubes i::before,.salida-nubes i::after{content:"";position:absolute;border-radius:50%;background:inherit}
+.salida-nubes i::before{width:58%;height:130%;left:8%;top:-52%}
+.salida-nubes i::after{width:48%;height:112%;right:7%;top:-38%}
+.salida-nubes i:nth-child(1){width:46vw;height:18vw;left:-12%;top:8%;opacity:.58}
+.salida-nubes i:nth-child(2){width:38vw;height:15vw;right:-8%;top:20%;opacity:.7}
+.salida-nubes i:nth-child(3){width:58vw;height:23vw;left:-20%;top:38%;opacity:.82;filter:blur(20px)}
+.salida-nubes i:nth-child(4){width:44vw;height:18vw;right:-13%;top:52%;opacity:.62}
+.salida-nubes i:nth-child(5){width:70vw;height:28vw;left:-24%;top:70%;opacity:.9;filter:blur(27px)}
+.salida-nubes i:nth-child(6){width:62vw;height:25vw;right:-22%;top:84%;opacity:.78;filter:blur(23px)}
+.oso-foto{position:absolute;z-index:3;top:-58px;right:-45px;width:clamp(125px,35vw,160px);
+  margin:0;filter:drop-shadow(0 12px 16px rgba(130,105,80,.14))}
+.sitio.animada .oso-foto{animation:mecer 6.8s ease-in-out infinite reverse}
+.nube-datos{
+  position:relative;
+  isolation:isolate;
+  margin:58px auto 44px;
+  width:min(75vw,285px);
+  min-height:154px;
+  padding:37px 36px 32px;
+  display:grid;
+  align-content:center;
+  gap:14px;
+  background:transparent;
+  border:0;
+  box-shadow:none;
+  backdrop-filter:none;
+  left:-14px;
+}
+.dato{display:flex;align-items:center;gap:11px;text-align:left}
+.dato svg{width:21px;flex:none;color:var(--tostado)}
+.dato b{display:block;font-weight:600;font-size:16px;line-height:1.35}
+.dato span{font-size:16px;line-height:1.35}
+.tarjeta{
+  position:relative;
+  isolation:isolate;
+  width:min(78vw,310px);
+  margin:48px auto 58px;
+  padding:44px 28px 42px;
+  background:transparent;
+  border:0;
+  box-shadow:none;
+  backdrop-filter:none;
+  overflow:visible;
+}
+
+/* Ritmo escalonado: las nubes alternan de lado sin parecer aleatorias. */
+.sitio > .tarjeta:nth-of-type(2){left:17px}
+.sitio > .tarjeta:nth-of-type(3){left:-12px}
+.sitio > .tarjeta:nth-of-type(4){left:14px}
+.rotulo{display:flex;align-items:center;justify-content:center;gap:7px;font-size:14px;
+  letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--cacao);margin:0 0 14px}
+.rotulo svg{width:18px;color:var(--tostado)}
+.salon{text-align:center;font-size:18px;font-weight:600;margin:0;color:var(--cacao)}
+.direccion{text-align:center;font-size:15px;line-height:1.45;margin:4px 0 14px;color:var(--tinta-suave)}
+.foto{border-radius:16px;overflow:hidden;box-shadow:var(--sombra-suave);margin:0 0 16px}
+.foto img{width:100%}
+.boton{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border:0;
+  border-radius:999px;padding:11px 14px;cursor:pointer;font-size:16px;color:#fff;text-decoration:none;
+  box-shadow:var(--sombra);transition:transform .18s ease,filter .18s ease}
+.boton:active{transform:translateY(1px) scale(.995)}
+.boton:hover{filter:brightness(1.05)}
+.boton svg{width:20px;flex:none}
+.b-maps,.b-whats{width:max-content;margin:0 auto;padding:8px 18px;font-size:14px;
+  background:linear-gradient(180deg,#b2916f,#96785a)}
+.enlace-mapa{display:block;text-align:center;margin-top:9px;font-size:14px;color:var(--tinta-suave);
+  text-decoration:underline;text-underline-offset:3px}
+.sub{text-align:center;font-size:15px;margin:-5px 0 14px;color:var(--tinta-suave)}
+.campo{position:relative;margin-bottom:12px}
+.campo svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:20px;color:var(--tostado);pointer-events:none}
+.campo input,.campo select{width:100%;border:1px solid var(--borde);background:rgba(255,253,250,.92);
+  border-radius:14px;padding:14px 16px 14px 48px;font-size:18px;color:var(--tinta);appearance:none;-webkit-appearance:none}
+.campo .flecha{left:auto;right:16px}
+.campo input::placeholder{color:#a8937d}
+.aviso{color:#a8674f;font-size:16px;margin:-4px 0 10px;display:none}
+.aviso.ver{display:block}
+.gracias{display:none;text-align:center;font-size:18px;line-height:1.45;color:var(--cacao);
+  background:rgba(255,255,255,.55);border-radius:14px;padding:12px 14px;margin-top:12px}
+.gracias.ver{display:block}
+.opcion{display:flex;align-items:center;gap:14px;width:100%;text-align:left;text-decoration:none;
+  background:rgba(255,253,249,.82);border:1px solid var(--borde);border-radius:18px;
+  padding:14px 16px;margin-bottom:11px;color:var(--tinta);transition:transform .18s ease}
+.opcion:hover{transform:translateX(2px)}
+.opcion svg:first-child{width:26px;flex:none;color:var(--tostado)}
+.opcion span{flex:1;font-size:18px;line-height:1.35}
+.opcion .chev{width:18px;opacity:.5}
+.parrafo{text-align:center;font-size:18px;line-height:1.5;margin:0 0 16px;color:var(--tinta-suave)}
+.separador{display:flex;align-items:center;gap:14px;margin:30px 4px 22px}
+.separador::before,.separador::after{content:"";flex:1;height:1px;background:var(--borde)}
+.separador img{width:19px;opacity:.65}
+.cierre,.final{text-align:center;font-style:italic;font-size:clamp(16px,4.4vw,19px);
+  line-height:1.45;color:var(--cacao);margin:0}
+.final .cor{display:inline-block;width:15px;margin-left:4px;vertical-align:-2px;opacity:.78}
+.oso-ubicacion,.oso-confirmacion{position:absolute;z-index:3;margin:0;
+  filter:drop-shadow(0 12px 16px rgba(130,105,80,.14))}
+.oso-ubicacion{top:-54px;left:-27px;width:116px}
+.oso-confirmacion{top:-48px;right:-29px;width:116px}
+.sitio.animada .oso-ubicacion{animation:mecer 7.2s ease-in-out -2s infinite}
+.sitio.animada .oso-confirmacion{animation:mecer 7s ease-in-out -1s infinite reverse}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.2s!important}
+}
+
+/* ===================== NUBES SVG =====================
+   La forma visible de cada card es un SVG continuo,
+   no un rectángulo con círculos/polígonos pegados.
+   ==================================================== */
+.cloud-card{
+  position:relative;
+  isolation:isolate;
+}
+
+.cloud-shape{
+  position:absolute;
+  z-index:-1;
+  left:-9%;
+  top:-13%;
+  width:118%;
+  height:126%;
+  overflow:visible;
+  pointer-events:none;
+  filter:drop-shadow(0 18px 18px rgba(122,94,66,.13));
+}
+
+.cloud-shape .cloud-base{
+  fill:#fffaf5;
+}
+
+.cloud-shape .cloud-light{
+  fill:rgba(255,255,255,.48);
+}
+
+.cloud-shape .cloud-soft{
+  fill:none;
+  stroke:rgba(255,255,255,.72);
+  stroke-width:3;
+}
+
+/* Las formas flotan sin mover el contenido ni provocar saltos de layout. */
+.sitio.animada .cloud-shape{
+  animation:respirar-nube 6s cubic-bezier(.45,0,.55,1) infinite alternate;
+  transform-origin:50% 55%;
+  will-change:transform;
+}
+.sitio.revelando-nubes .cloud-shape{animation:none}
+
+.sitio.animada .cloud-card:nth-of-type(even) .cloud-shape{
+  animation-delay:-4s;
+  animation-direction:alternate-reverse;
+}
+
+@keyframes respirar-nube{
+  from{transform:translate3d(-6px,4px,0) rotate(-.5deg) scale(.99)}
+  to{transform:translate3d(8px,-10px,0) rotate(.55deg) scale(1.015)}
+}
+
+/* compacta: fecha/hora */
+.nube-datos .cloud-shape{
+  left:-11%;
+  top:-19%;
+  width:122%;
+  height:138%;
+}
+
+/* cards largas */
+.tarjeta .cloud-shape{
+  left:-8%;
+  top:-10%;
+  width:116%;
+  height:120%;
+}
+
+.nube-datos > :not(.cloud-shape):not(.oso-foto),
+.tarjeta > :not(.cloud-shape):not(.oso-ubicacion):not(.oso-confirmacion){
+  position:relative;
+  z-index:2;
+}
+
+/* Ya no existen estos bloques en el diseño */
+.foto,.campo,.aviso,.gracias,.separador{
+  display:none !important;
+}
+
+@media(max-width:380px){
+  .nube-datos{
+    width:min(78vw,275px);
+    padding:35px 31px 30px;
+    left:-7px;
+  }
+  .oso-foto{top:-49px;right:-32px;width:132px}
+  .oso-ubicacion{top:-44px;left:-18px;width:96px}
+  .oso-confirmacion{top:-39px;right:-18px;width:94px}
+  .tarjeta{
+    width:min(82vw,300px);
+    padding:41px 24px 38px;
+  }
+  .sitio > .tarjeta:nth-of-type(2){left:8px}
+  .sitio > .tarjeta:nth-of-type(3){left:-7px}
+  .sitio > .tarjeta:nth-of-type(4){left:6px}
+}
+
+@media(max-height:740px){
+  .portada{padding:10px 0}
+  .globo-oso{width:min(60%,235px)}
+  .mensaje-bebe{margin:10px auto 8px;font-size:clamp(14px,3.8vw,16px);line-height:1.42}
+  .mensaje-bebe span{margin-top:6px}
+  .mensaje-bebe .antes-titulo{margin-top:7px}
+  .titulo{font-size:clamp(36px,10vw,44px)}
+  .continuar{height:54px;margin-top:8px}
+  .continuar span{top:-2px;font-size:13px}
+  .continuar svg{top:15px}
+  .continuar svg:last-child{top:25px}
+}
+
+@media (prefers-reduced-motion: reduce){
+  .sitio.animada .cloud-shape{animation:none}
+}
+
+</style>
+</head>
+<body class="bloqueado">
+
+<audio id="musica" src="assets/sonido.mp3" preload="auto" loop></audio>
+
+<div class="cielo" aria-hidden="true">
+  <span class="nube n1"></span><span class="nube n2"></span>
+  <span class="nube n3"></span><span class="nube n4"></span>
+  <img class="banda-nubes" src="assets/clouds.webp" alt="">
+</div>
+
+<div class="salida-nubes" id="salidaNubes" aria-hidden="true">
+  <i></i><i></i><i></i><i></i><i></i><i></i>
+</div>
+
+<!-- ===================== INTRO ===================== -->
+<div class="escenario" id="escenario">
+
+  <div class="viaje viaje-atras" aria-hidden="true">
+    <div class="capa capa-lejos">
+      <i style="left:4%;top:6%;width:30vw;height:13vw"></i>
+      <i style="right:8%;top:30%;width:26vw;height:12vw"></i>
+      <i style="left:14%;top:58%;width:34vw;height:14vw"></i>
+      <i style="right:4%;top:82%;width:28vw;height:12vw"></i>
+    </div>
+    <div class="capa capa-media">
+      <i style="left:-6%;top:18%;width:46vw;height:20vw"></i>
+      <i style="right:-8%;top:48%;width:52vw;height:22vw"></i>
+      <i style="left:10%;top:76%;width:40vw;height:18vw"></i>
+    </div>
+  </div>
+
+  <div class="viaje viaje-frente" aria-hidden="true">
+    <div class="capa capa-cerca">
+      <i style="left:-22%;top:8%;width:80vw;height:34vw"></i>
+      <i style="right:-26%;top:56%;width:90vw;height:38vw"></i>
+    </div>
+  </div>
+
+  <div aria-hidden="true">
+    <img class="estrella" src="assets/star.svg" style="left:8vw;top:16vh" alt="">
+    <img class="estrella" src="assets/star.svg" style="right:10vw;top:11vh;animation-delay:-2.5s;width:17px" alt="">
+    <img class="estrella" src="assets/star.svg" style="left:13vw;bottom:22vh;animation-delay:-4s;width:15px" alt="">
+    <span class="chispa" style="left:22vw;top:30vh"></span>
+    <span class="chispa" style="right:18vw;top:38vh;animation-delay:-1.2s"></span>
+    <span class="chispa" style="left:30vw;bottom:18vh;animation-delay:-2.1s"></span>
+  </div>
+
+  <h1 class="intro-titulo">Hay una<br>invitación especial<br>para ti…</h1>
+
+  <div class="escena-wrap"><div class="escena">
+    <button class="carta flotar-sobre" id="carta" type="button" aria-label="Abrir el sobre y ver la invitación">
+      <img class="sobre" src="assets/sobre.png" alt="Sobre cerrado">
+      
+    </button>
+  </div></div>
+
+  <div class="riser" id="riser" aria-hidden="true">
+    <div class="swing" id="swing"><div class="drift" id="drift"></div></div>
+  </div>
+
+  <p class="intro-pie">Toca el sobre<br>para abrirla
+    <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg>
+  </p>
+</div>
+
+<!-- ===================== SITIO ===================== -->
+<main class="sitio esperando-nubes" id="sitio" hidden>
+  <section class="portada">
+    <img class="globo-oso" id="heroSitio" src="assets/osoglobos.png" alt="Osito viajando en un globo con la palabra Baby">
+    <p class="mensaje-bebe">
+      Hola… Diosito está terminando de formar mis manitas y pintar mis cachetitos.
+      <span>Mientras, quiero invitarte a celebrar<br>la alegría de mi llegada.</span>
+      <span class="antes-titulo">Nos vemos en mi</span>
+    </p>
+    <h1 class="titulo">BABY SHOWER</h1>
+    <button class="continuar" id="continuar" type="button" aria-label="Ver los detalles de la invitación">
+      <span>Clic</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8l7 7 7-7"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8l7 7 7-7"/></svg>
+    </button>
+  </section>
+
+  <div class="nube-datos cloud-card">
+<svg class="cloud-shape" viewBox="0 0 400 280" preserveAspectRatio="none" aria-hidden="true">
+  <path class="cloud-base" d="
+    M48 212
+    C20 202 12 174 29 151
+    C9 124 20 90 52 80
+    C52 48 82 25 116 35
+    C138 8 180 7 207 31
+    C237 8 279 20 292 51
+    C327 44 357 64 360 96
+    C390 108 397 142 377 165
+    C390 194 368 222 338 228
+    C321 258 281 266 254 246
+    C228 274 181 276 153 248
+    C122 270 83 259 72 231
+    C63 230 55 225 48 212
+    Z"/>
+  <path class="cloud-light" d="
+    M69 132
+    C62 93 95 58 134 66
+    C158 36 204 35 228 62
+    C266 48 307 69 310 106
+    C273 89 229 84 190 88
+    C147 92 105 108 69 132 Z"/>
+  <path class="cloud-soft" d="
+    M50 211
+    C22 200 15 175 31 153
+    C12 125 23 93 54 83
+    C55 53 84 30 117 40
+    C141 14 178 14 205 36"/>
+</svg>
+      <img class="oso-foto" src="assets/osodurmiendo.png" alt="Osito dormido sobre la nube de la fecha">
+      <div class="dato">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>
+        <div><b id="diaSemana">Domingo</b><span id="fechaTexto">04 de octubre, 2026</span></div>
+      </div>
+      <div class="dato">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg>
+        <div><span id="horaTexto">3:00 PM</span></div>
+      </div>
+  </div>
+
+  <section class="tarjeta cloud-card">
+<svg class="cloud-shape" viewBox="0 0 400 280" preserveAspectRatio="none" aria-hidden="true">
+  <path class="cloud-base" d="
+    M48 212
+    C20 202 12 174 29 151
+    C9 124 20 90 52 80
+    C52 48 82 25 116 35
+    C138 8 180 7 207 31
+    C237 8 279 20 292 51
+    C327 44 357 64 360 96
+    C390 108 397 142 377 165
+    C390 194 368 222 338 228
+    C321 258 281 266 254 246
+    C228 274 181 276 153 248
+    C122 270 83 259 72 231
+    C63 230 55 225 48 212
+    Z"/>
+  <path class="cloud-light" d="
+    M69 132
+    C62 93 95 58 134 66
+    C158 36 204 35 228 62
+    C266 48 307 69 310 106
+    C273 89 229 84 190 88
+    C147 92 105 108 69 132 Z"/>
+  <path class="cloud-soft" d="
+    M50 211
+    C22 200 15 175 31 153
+    C12 125 23 93 54 83
+    C55 53 84 30 117 40
+    C141 14 178 14 205 36"/>
+</svg>
+    <img class="oso-ubicacion" src="assets/PACHA.png" alt="Pacha sobre la nube de ubicación">
+    <h2 class="rotulo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M12 21s7-5.3 7-11a7 7 0 1 0-14 0c0 5.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+      Ubicación
+    </h2>
+    <p class="salon" id="salonNombre">Salón 'Piñaton'</p>
+    <p class="direccion" id="salonDireccion">Fuentes del valle 1, zona 7 de San Miguel Petapa</p>
+    <a class="boton b-maps" id="btnMaps" href="#" target="_blank" rel="noopener">
+      Abrir en Maps
+    </a>
+  </section>
+
+  <section class="tarjeta cloud-card">
+<svg class="cloud-shape" viewBox="0 0 400 280" preserveAspectRatio="none" aria-hidden="true">
+  <path class="cloud-base" d="
+    M48 212
+    C20 202 12 174 29 151
+    C9 124 20 90 52 80
+    C52 48 82 25 116 35
+    C138 8 180 7 207 31
+    C237 8 279 20 292 51
+    C327 44 357 64 360 96
+    C390 108 397 142 377 165
+    C390 194 368 222 338 228
+    C321 258 281 266 254 246
+    C228 274 181 276 153 248
+    C122 270 83 259 72 231
+    C63 230 55 225 48 212
+    Z"/>
+  <path class="cloud-light" d="
+    M69 132
+    C62 93 95 58 134 66
+    C158 36 204 35 228 62
+    C266 48 307 69 310 106
+    C273 89 229 84 190 88
+    C147 92 105 108 69 132 Z"/>
+  <path class="cloud-soft" d="
+    M50 211
+    C22 200 15 175 31 153
+    C12 125 23 93 54 83
+    C55 53 84 30 117 40
+    C141 14 178 14 205 36"/>
+</svg>
+    <img class="oso-confirmacion" src="assets/oso.png" alt="Osito sobre la nube de confirmación">
+    <h2 class="rotulo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M20 11.8c0 4-3.4 7.2-7.6 7.2-1.2 0-2.4-.3-3.4-.8L4.5 19.5l1.4-4.1c-.7-1-1.1-2.3-1.1-3.6C4.8 7.8 8.2 4.6 12.4 4.6S20 7.8 20 11.8z"/></svg>
+      Confirmar asistencia
+    </h2>
+    <p class="sub">Nos encantaría contar con tu presencia</p>
+    <button class="boton b-whats" id="btnWhats" type="button">
+      Confirmar
+    </button>
+  </section>
+
+  <section class="tarjeta cloud-card">
+<svg class="cloud-shape" viewBox="0 0 400 280" preserveAspectRatio="none" aria-hidden="true">
+  <path class="cloud-base" d="
+    M48 212
+    C20 202 12 174 29 151
+    C9 124 20 90 52 80
+    C52 48 82 25 116 35
+    C138 8 180 7 207 31
+    C237 8 279 20 292 51
+    C327 44 357 64 360 96
+    C390 108 397 142 377 165
+    C390 194 368 222 338 228
+    C321 258 281 266 254 246
+    C228 274 181 276 153 248
+    C122 270 83 259 72 231
+    C63 230 55 225 48 212
+    Z"/>
+  <path class="cloud-light" d="
+    M69 132
+    C62 93 95 58 134 66
+    C158 36 204 35 228 62
+    C266 48 307 69 310 106
+    C273 89 229 84 190 88
+    C147 92 105 108 69 132 Z"/>
+  <path class="cloud-soft" d="
+    M50 211
+    C22 200 15 175 31 153
+    C12 125 23 93 54 83
+    C55 53 84 30 117 40
+    C141 14 178 14 205 36"/>
+</svg>
+    <p class="cierre">Gracias por ser parte<br>de esta etapa tan especial</p>
+    <p class="final">¡Te esperamos!<img class="cor" src="assets/heart.svg" alt=""></p>
+  </section>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="datos.js"></script>
+<script>
+/* ============================================================
+   DATOS DE LA FIESTA — edita solo este bloque
+   ============================================================ */
+/* Los datos de la fiesta viven en datos.js */
+const $ = (id) => document.getElementById(id);
+
+$("diaSemana").textContent = CONFIG.diaSemana;
+$("fechaTexto").textContent = CONFIG.fecha;
+$("horaTexto").textContent = CONFIG.hora;
+$("salonNombre").textContent = CONFIG.salon;
+$("salonDireccion").textContent = CONFIG.direccion;
+const destino = (CONFIG.lat && CONFIG.lng) ? CONFIG.lat + "," + CONFIG.lng
+                                           : CONFIG.salon + ", " + CONFIG.direccion;
+$("btnMaps").href = CONFIG.mapsUrl ||
+  "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(destino);
+
+/* ---------------- confirmación por WhatsApp ---------------- */
+$("btnWhats").addEventListener("click", () => {
+  const texto = "¡Hola, confirmo mi asistencia!";
+  window.open(
+    "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(texto),
+    "_blank",
+    "noopener"
+  );
+});
+
+/* ============================================================
+   SECUENCIA CONTINUA DEL OSITO
+   ============================================================ */
+const escenario = $("escenario"), carta = $("carta"), escena = document.querySelector(".escena"),
+      sobre = document.querySelector(".sobre"),
+      titulo = document.querySelector(".intro-titulo"), pie = document.querySelector(".intro-pie"),
+      riser = $("riser"), swing = $("swing"), drift = $("drift"), sitio = $("sitio"),
+      portadaPrincipal = document.querySelector(".portada"), continuar = $("continuar"),
+      nubesDetalle = Array.from(sitio.querySelectorAll(":scope > .nube-datos, :scope > .tarjeta")),
+      salidaNubes = $("salidaNubes"),
+      nubesSalida = salidaNubes.querySelectorAll("i"), musica = $("musica");
+
+const lento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const G = window.gsap || null;
+let corriendo = false, reloj = null;
+let mostrandoDetalles = false;
+musica.volume = .55;
+
+function mostrarDetalles(){
+  if (mostrandoDetalles) return;
+  mostrandoDetalles = true;
+  continuar.disabled = true;
+
+  if (lento || !G) {
+    portadaPrincipal.hidden = true;
+    sitio.classList.remove("esperando-nubes");
+    document.body.classList.remove("portada-activa");
+    window.scrollTo(0,0);
+    return;
+  }
+
+  sitio.classList.add("revelando-nubes");
+  nubesDetalle.forEach((nube, indice) => {
+    const forma = nube.querySelector(".cloud-shape");
+    const contenido = nube.querySelectorAll(":scope > :not(.cloud-shape)");
+    G.set(nube, { autoAlpha: 1 });
+    G.set(forma, {
+      autoAlpha: 0,
+      scale: .82,
+      rotation: indice % 2 === 0 ? -1.4 : 1.4,
+      transformOrigin: "50% 55%"
+    });
+    G.set(contenido, { autoAlpha: 0 });
+  });
+  const salida = G.timeline({
+    onComplete: () => {
+      G.set(salidaNubes, { autoAlpha: 0 });
+      sitio.classList.remove("revelando-nubes");
+    }
+  });
+
+  salida.to(salidaNubes, { autoAlpha: 1, duration: .3, ease: "power2.out" }, 0)
+    .fromTo(nubesSalida,
+      { y: () => -window.innerHeight * .62 },
+      { y: () => window.innerHeight * 1.35, duration: 5.7, stagger: .08, ease: "none" }, 0)
+    .to(portadaPrincipal, {
+      y: () => -window.innerHeight * 1.18,
+      autoAlpha: 0,
+      duration: 2.55,
+      ease: "power2.inOut"
+    }, 0)
+    .add(() => {
+      portadaPrincipal.hidden = true;
+      sitio.classList.remove("esperando-nubes");
+      document.body.classList.remove("portada-activa");
+      window.scrollTo(0,0);
+    }, 2.55);
+
+  nubesDetalle.forEach((nube, indice) => {
+    const forma = nube.querySelector(".cloud-shape");
+    const contenido = nube.querySelectorAll(":scope > :not(.cloud-shape)");
+    const inicio = 2.55 + indice * .58;
+
+    salida.to(forma, {
+      autoAlpha: 1,
+      scale: 1,
+      rotation: 0,
+      duration: 1.2,
+      ease: "expo.out"
+    }, inicio).to(contenido, {
+      autoAlpha: 1,
+      duration: .72,
+      stagger: .06,
+      ease: "power2.out"
+    }, inicio + .26);
+  });
+
+  salida.to(salidaNubes, { autoAlpha: 0, duration: .7, ease: "power2.out" }, 5.35);
+}
+
+function mostrarSitio(){
+  sitio.hidden = false;
+  document.body.classList.add("portada-activa");
+  sitio.style.transition = "none";
+  sitio.classList.add("visible");
+  sitio.getBoundingClientRect();
+  sitio.style.transition = "";
+}
+
+function terminar(){
+  if (reloj) clearTimeout(reloj);
+  if (G) G.killTweensOf([riser, swing, drift, sobre, titulo, pie]);
+  mostrarSitio();
+  escenario.classList.add("fuera");
+  sitio.classList.add("animada");
+  document.body.classList.remove("bloqueado");
+  window.scrollTo(0,0);
+  setTimeout(() => {
+    if (escenario.parentNode) escenario.remove();
+  }, 900);
+}
+
+/* Clona la portada para que el osito traiga consigo los textos. El clon
+   aterriza exactamente sobre el contenido real. */
+function prepararGlobo(){
+  const portada = document.querySelector(".portada");
+  sitio.hidden = false;                      // se mide sin verse (opacity 0)
+  const r = portada.getBoundingClientRect();
+  if (r.width < 40) return false;
+
+  const clon = portada.cloneNode(true);
+  clon.querySelectorAll("[id]").forEach(n => n.removeAttribute("id"));
+  drift.appendChild(clon);
+
+  riser.style.left  = r.left  + "px";
+  riser.style.top   = r.top   + "px";
+  riser.style.width = r.width + "px";
+  return true;
+}
+
+function arrancar(){
+  if (corriendo) return;
+  corriendo = true;
+  musica.play().catch(() => {});
+  carta.disabled = true;
+  carta.classList.remove("flotar-sobre");
+
+  if (lento || !prepararGlobo()){ terminar(); return; }
+
+  const desdeAbajo = window.innerHeight + 60;
+
+  /* --- sin GSAP (si el CDN no cargó): misma coreografía con transiciones --- */
+  if (!G){
+    titulo.style.opacity = pie.style.opacity = "0";
+    escena.style.transition = "transform .55s cubic-bezier(.5,0,.9,.4), opacity .5s ease";
+    escena.style.transform = "scale(.15)";
+    escena.style.opacity = "0";
+    riser.style.transform = "translateY(" + desdeAbajo + "px)";
+    riser.style.opacity = "1";
+    riser.getBoundingClientRect();
+    riser.style.transition = "transform 2.7s cubic-bezier(.16,.72,.24,1)";
+    riser.style.transform = "none";
+    escenario.classList.add("ascenso");
+    reloj = setTimeout(terminar, 2900);
+    return;
+  }
+
+  /* --- con GSAP --- */
+  G.set(riser, { y: desdeAbajo, scale: 1, opacity: 1 });
+
+  const tl = G.timeline({ onComplete: terminar });
+
+  /* el sobre se despide: da un respiro y desaparece por completo */
+  tl.to([titulo, pie], { opacity: 0, y: -12, duration: .3, ease: "power1.in" }, 0)
+    .to(escena,   { scale: 1.09, duration: .28, ease: "power2.out" }, 0)
+    .to(escena,   { scale: .12, opacity: 0, duration: .5, ease: "power2.in" }, .3)
+
+    /* el globo entra desde el borde inferior y sube hasta su sitio */
+    .to(riser, { y: 0, duration: 2.7, ease: "expo.out" }, .55)
+    .add(() => escenario.classList.add("ascenso"), .6)
+
+    /* la página aparece cuando el osito ya coincide con su imagen final */
+    .add(mostrarSitio, 3.25)
+    .to({}, { duration: .25 });
+}
+
+carta.addEventListener("click", arrancar);
+continuar.addEventListener("click", mostrarDetalles);
+</script>
+</body>
+</html>
