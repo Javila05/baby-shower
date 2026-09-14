@@ -7,6 +7,8 @@
 <meta name="description" content="Invitación al baby shower. Confirma tu asistencia por WhatsApp.">
 <meta property="og:title" content="Hay una invitación especial para ti…">
 <meta property="og:description" content="Un pequeño osito está en camino. Toca para abrir el sobre.">
+<link rel="preload" as="image" href="assets/sobre.png" fetchpriority="high">
+<link rel="preload" as="image" href="assets/osoglobos.png" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Nunito+Sans:opsz,wght@6..12,400;6..12,500;6..12,600;6..12,700&display=swap" rel="stylesheet">
@@ -59,6 +61,7 @@ button,input,select{font:inherit;color:inherit}
 /* ===================== ESCENARIO / CÁMARA ===================== */
 .escenario{position:fixed;inset:0;z-index:60;overflow:hidden;
   transition:opacity .8s ease,visibility .8s}
+body:not(.recursos-listos) .escenario{opacity:0;visibility:hidden}
 .escenario.fuera{opacity:0;visibility:hidden;pointer-events:none}
 
 /* capas de nubes que corren hacia abajo = la cámara sube */
@@ -104,7 +107,7 @@ button,input,select{font:inherit;color:inherit}
 
 .carta{position:relative;display:block;width:100%;background:none;border:0;padding:0;
   cursor:pointer;-webkit-tap-highlight-color:transparent}
-.sobre{width:100%;display:block;filter:drop-shadow(0 26px 30px rgba(140,112,84,.26))}
+.sobre{width:100%;display:block}
 .sorpresa{position:absolute;left:0;right:0;top:27%;text-align:center;pointer-events:none;
   font-family:var(--script);font-weight:600;color:#a98a6b;
   font-size:clamp(21px,6.2vw,27px);text-shadow:0 1px 0 rgba(255,255,255,.6)}
@@ -115,7 +118,7 @@ button,input,select{font:inherit;color:inherit}
 .riser{position:fixed;z-index:24;pointer-events:none;transform-origin:50% 20%;
   will-change:transform;opacity:0}
 .swing{transform-origin:50% 8%}
-.riser .globo-oso{filter:drop-shadow(0 22px 26px rgba(130,105,80,.22))}
+.riser .globo-oso{filter:none}
 
 /* ===================== SITIO ===================== */
 .sitio{position:relative;z-index:1;width:var(--col);margin:0 auto;
@@ -422,8 +425,8 @@ button,input,select{font:inherit;color:inherit}
   <h1 class="intro-titulo">Hay una<br>invitación especial<br>para ti…</h1>
 
   <div class="escena-wrap"><div class="escena">
-    <button class="carta flotar-sobre" id="carta" type="button" aria-label="Abrir el sobre y ver la invitación">
-      <img class="sobre" src="assets/sobre.png" alt="Sobre cerrado">
+    <button class="carta flotar-sobre" id="carta" type="button" aria-label="Abrir el sobre y ver la invitación" disabled>
+      <img class="sobre" src="assets/sobre.png" alt="Sobre cerrado" decoding="async" fetchpriority="high">
       
     </button>
   </div></div>
@@ -441,7 +444,7 @@ button,input,select{font:inherit;color:inherit}
 <!-- ===================== SITIO ===================== -->
 <main class="sitio esperando-nubes" id="sitio" hidden>
   <section class="portada">
-    <img class="globo-oso" id="heroSitio" src="assets/osoglobos.png" alt="Osito viajando en un globo con la palabra Baby">
+    <img class="globo-oso" id="heroSitio" src="assets/osoglobos.png" alt="Osito viajando en un globo con la palabra Baby" decoding="async" fetchpriority="high">
     <p class="mensaje-bebe">
       Hola… Diosito está terminando de formar mis manitas y pintar mis cachetitos.
       <span>Mientras, quiero invitarte a celebrar<br>la alegría de mi llegada.</span>
@@ -669,6 +672,28 @@ const G = window.gsap || null;
 let corriendo = false, reloj = null;
 let mostrandoDetalles = false;
 musica.volume = .55;
+
+async function prepararImagen(imagen){
+  if (!imagen.complete) {
+    await new Promise((resolver) => {
+      imagen.addEventListener("load", resolver, { once: true });
+      imagen.addEventListener("error", resolver, { once: true });
+    });
+  }
+  if (imagen.decode) {
+    try { await imagen.decode(); } catch (_) {}
+  }
+}
+
+Promise.all([
+  prepararImagen(document.querySelector(".sobre")),
+  prepararImagen($("heroSitio"))
+]).then(() => {
+  requestAnimationFrame(() => {
+    document.body.classList.add("recursos-listos");
+    carta.disabled = false;
+  });
+});
 
 function mostrarDetalles(){
   if (mostrandoDetalles) return;
