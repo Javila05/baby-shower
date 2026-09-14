@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="only light">
+<meta name="supported-color-schemes" content="light">
+<meta name="theme-color" content="#eceff4">
 <title>Baby Shower · Un pequeño osito está en camino</title>
 <meta name="description" content="Invitación al baby shower. Confirma tu asistencia por WhatsApp.">
 <meta property="og:title" content="Hay una invitación especial para ti…">
@@ -14,7 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Nunito+Sans:opsz,wght@6..12,400;6..12,500;6..12,600;6..12,700&display=swap" rel="stylesheet">
 <style>
 :root{
-  color-scheme: light;
+  color-scheme:only light;
   --cielo-alto:#eceff4; --cielo-medio:#f3eee9; --cielo-bajo:#f7f1e8;
   --papel:rgba(255,252,247,.66); --borde:rgba(180,158,134,.22);
   --tinta:#7b6551; --tinta-suave:#8e7962; --cacao:#8a6c50; --tostado:#b0906f;
@@ -26,14 +29,14 @@
   --script:"Mali","Segoe Print",cursive;
 }
 *{box-sizing:border-box}
-html,body{margin:0;padding:0}
+html,body{margin:0;padding:0;background-color:#f7f1e8;color-scheme:only light}
 html{-webkit-text-size-adjust:100%}
 body{font-family:var(--serif);color:var(--tinta);background:var(--cielo-bajo);
   min-height:100dvh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 body.bloqueado{overflow:hidden;height:100dvh}
 body.portada-activa{overflow:hidden;height:100dvh}
 img{max-width:100%;display:block}
-button,input,select{font:inherit;color:inherit}
+button,input,select{font:inherit;color:inherit;color-scheme:only light}
 :focus-visible{outline:2px solid var(--tostado);outline-offset:3px;border-radius:10px}
 
 /* ===================== CIELO BASE ===================== */
@@ -41,7 +44,14 @@ button,input,select{font:inherit;color:inherit}
   background:
     radial-gradient(120% 70% at 50% 0%, #e9eef4 0%, rgba(233,238,244,0) 62%),
     radial-gradient(90% 50% at 12% 22%, rgba(226,233,241,.75) 0%, rgba(226,233,241,0) 60%),
-    linear-gradient(180deg,var(--cielo-alto) 0%,var(--cielo-medio) 42%,var(--cielo-bajo) 78%,#f8f2ea 100%);}
+    linear-gradient(180deg,var(--cielo-alto) 0%,var(--cielo-medio) 42%,var(--cielo-bajo) 78%,#f8f2ea 100%);
+  background-color:#f7f1e8}
+
+@media(prefers-color-scheme:dark){
+  :root{color-scheme:only light}
+  html,body{background-color:#f7f1e8;color:#7b6551}
+  .cielo{background-color:#f7f1e8}
+}
 .nube{position:absolute;border-radius:46% 54% 48% 52%;background:rgba(255,253,249,.78);
   filter:blur(13px);opacity:.55;animation:deriva-fondo 18s cubic-bezier(.45,0,.55,1) infinite alternate}
 .nube::before,.nube::after{content:"";position:absolute;display:block;border-radius:50%;background:inherit}
