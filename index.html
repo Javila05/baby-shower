@@ -3,10 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="color-scheme" content="light dark">
-<meta name="supported-color-schemes" content="light dark">
-<meta name="theme-color" content="#eceff4" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#121820" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="only light">
+<meta name="supported-color-schemes" content="light">
+<meta name="theme-color" content="#eceff4">
 <title>Baby Shower · Un pequeño osito está en camino</title>
 <meta name="description" content="Invitación al baby shower. Confirma tu asistencia por WhatsApp.">
 <meta property="og:title" content="Hay una invitación especial para ti…">
@@ -18,7 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Nunito+Sans:opsz,wght@6..12,400;6..12,500;6..12,600;6..12,700&display=swap" rel="stylesheet">
 <style>
 :root{
-  color-scheme:light dark;
+  color-scheme:only light;
   --cielo-alto:#eceff4; --cielo-medio:#f3eee9; --cielo-bajo:#f7f1e8;
   --papel:rgba(255,252,247,.66); --borde:rgba(180,158,134,.22);
   --tinta:#7b6551; --tinta-suave:#8e7962; --cacao:#8a6c50; --tostado:#b0906f;
@@ -30,14 +29,14 @@
   --script:"Mali","Segoe Print",cursive;
 }
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;background-color:#f7f1e8;color-scheme:light dark}
+html,body{margin:0;padding:0;background-color:#f7f1e8;color-scheme:only light}
 html{-webkit-text-size-adjust:100%}
 body{font-family:var(--serif);color:var(--tinta);background:var(--cielo-bajo);
   min-height:100dvh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 body.bloqueado{overflow:hidden;height:100dvh}
 body.portada-activa{overflow:hidden;height:100dvh}
 img{max-width:100%;display:block}
-button,input,select{font:inherit;color:inherit;color-scheme:light dark}
+button,input,select{font:inherit;color:inherit;color-scheme:only light}
 :focus-visible{outline:2px solid var(--tostado);outline-offset:3px;border-radius:10px}
 
 /* ===================== CIELO BASE ===================== */
@@ -47,6 +46,12 @@ button,input,select{font:inherit;color:inherit;color-scheme:light dark}
     radial-gradient(90% 50% at 12% 22%, rgba(226,233,241,.75) 0%, rgba(226,233,241,0) 60%),
     linear-gradient(180deg,var(--cielo-alto) 0%,var(--cielo-medio) 42%,var(--cielo-bajo) 78%,#f8f2ea 100%);
   background-color:#f7f1e8}
+
+@media(prefers-color-scheme:dark){
+  :root{color-scheme:only light}
+  html,body{background-color:#f7f1e8;color:#7b6551}
+  .cielo{background-color:#f7f1e8}
+}
 
 .nube{position:absolute;border-radius:46% 54% 48% 52%;background:rgba(255,253,249,.78);
   filter:blur(13px);opacity:.55;animation:deriva-fondo 18s cubic-bezier(.45,0,.55,1) infinite alternate}
@@ -372,40 +377,6 @@ body:not(.recursos-listos) .escenario{opacity:0;visibility:hidden}
   .continuar span{top:-2px;font-size:13px}
   .continuar svg{top:15px}
   .continuar svg:last-child{top:25px}
-}
-
-/* Samsung Internet respeta este tema en lugar de intentar generar uno. */
-@media(prefers-color-scheme:dark){
-  :root{
-    color-scheme:dark;
-    --cielo-alto:#121820; --cielo-medio:#191b1d; --cielo-bajo:#211b15;
-    --papel:rgba(65,56,47,.9); --borde:rgba(224,194,160,.24);
-    --tinta:#f0dfcc; --tinta-suave:#dbc5aa; --cacao:#f1cfaa; --tostado:#d2aa80;
-    --sombra:0 18px 40px -22px rgba(0,0,0,.8);
-    --sombra-suave:0 10px 26px -18px rgba(0,0,0,.72);
-  }
-  html,body{background-color:#211b15;color:var(--tinta)}
-  button,input,select{color-scheme:dark}
-  .cielo{
-    background:
-      radial-gradient(120% 70% at 50% 0%,#1c2834 0%,rgba(28,40,52,0) 62%),
-      radial-gradient(90% 50% at 12% 22%,rgba(39,49,58,.72) 0%,rgba(39,49,58,0) 60%),
-      linear-gradient(180deg,#121820 0%,#191b1d 42%,#211b15 78%,#251d16 100%);
-    background-color:#211b15;
-  }
-  .nube{background:rgba(91,99,105,.4)}
-  .capa i{background:#5a6268}
-  .chispa{background:#fff4df}
-  .salida-nubes i{background:rgba(91,99,105,.92)}
-  .cloud-shape .cloud-base{fill:#453a31}
-  .cloud-shape .cloud-light{fill:rgba(112,91,72,.38)}
-  .cloud-shape .cloud-soft{fill:none;stroke:rgba(221,187,151,.3)}
-  .campo input,.campo select{background:rgba(55,47,40,.95);color:var(--tinta)}
-  .campo input::placeholder{color:#bfa78d}
-  .gracias{background:rgba(76,63,52,.78);color:var(--cacao)}
-  .opcion{background:rgba(62,53,45,.94);color:var(--tinta)}
-  .boton{color:#21170f}
-  .b-maps,.b-whats{background:linear-gradient(180deg,#e0ba91,#c99a6d)}
 }
 
 @media (prefers-reduced-motion: reduce){
