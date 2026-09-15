@@ -6,13 +6,6 @@
 <meta name="color-scheme" content="only light">
 <meta name="supported-color-schemes" content="light">
 <meta name="theme-color" content="#eceff4">
-<script>
-try{
-  if(/SamsungBrowser/i.test(navigator.userAgent) && localStorage.getItem("correccionSamsung")==="1"){
-    document.documentElement.classList.add("samsung-corregido");
-  }
-}catch(_){}
-</script>
 <title>Baby Shower · Un pequeño osito está en camino</title>
 <meta name="description" content="Invitación al baby shower. Confirma tu asistencia por WhatsApp.">
 <meta property="og:title" content="Hay una invitación especial para ti…">
@@ -46,19 +39,19 @@ img{max-width:100%;display:block}
 button,input,select{font:inherit;color:inherit;color-scheme:only light}
 :focus-visible{outline:2px solid var(--tostado);outline-offset:3px;border-radius:10px}
 
-.ajuste-samsung{position:fixed;z-index:1000;top:calc(12px + env(safe-area-inset-top));right:12px;
-  width:40px;height:40px;padding:0;border:1px solid rgba(176,144,111,.42);border-radius:50%;
+.ajuste-colores{position:fixed;z-index:1000;top:calc(12px + env(safe-area-inset-top));left:10px;
+  width:34px;height:34px;padding:0;border:1px solid rgba(176,144,111,.42);border-radius:50%;
   display:grid;place-items:center;background:#fffaf5;color:#8a6c50;box-shadow:0 8px 22px rgba(76,58,40,.22);
   cursor:pointer;-webkit-tap-highlight-color:transparent}
-.ajuste-samsung[hidden]{display:none}
-.ajuste-samsung svg{width:21px;height:21px}
-.ajuste-samsung .ayuda-samsung{position:absolute;right:48px;top:2px;width:max-content;max-width:210px;
+.ajuste-colores[hidden]{display:none}
+.ajuste-colores svg{width:18px;height:18px}
+.ajuste-colores .ayuda-colores{position:absolute;left:42px;top:0;width:max-content;max-width:210px;
   padding:8px 11px;border-radius:10px;background:#fffaf5;color:#5f4937;font-size:13px;font-weight:700;
   line-height:1.25;box-shadow:0 8px 22px rgba(76,58,40,.22);opacity:0;visibility:hidden;
   transform:translateX(5px);transition:opacity .2s ease,transform .2s ease,visibility .2s}
-.ajuste-samsung.mostrar-ayuda .ayuda-samsung,.ajuste-samsung:focus-visible .ayuda-samsung{
+.ajuste-colores.mostrar-ayuda .ayuda-colores,.ajuste-colores:focus-visible .ayuda-colores{
   opacity:1;visibility:visible;transform:none}
-.samsung-cloud-png{display:none}
+.nube-corregida-png{display:none}
 
 /* ===================== CIELO BASE ===================== */
 .cielo{position:fixed;inset:0;z-index:0;pointer-events:none;
@@ -369,12 +362,11 @@ body:not(.recursos-listos) .escenario{opacity:0;visibility:hidden}
   display:none !important;
 }
 
-/* Samsung no expone su oscurecimiento a prefers-color-scheme. Esta clase
-   corrige manualmente solo las nubes que contienen información. */
-.samsung-corregido .cloud-vector{display:none}
-.samsung-corregido .samsung-cloud-png{display:block;
+/* Variante manual para navegadores que alteran los colores de la página. */
+.colores-corregidos .cloud-vector{display:none}
+.colores-corregidos .nube-corregida-png{display:block;
   filter:brightness(1.4) drop-shadow(0 18px 18px rgba(122,94,66,.13))}
-.samsung-corregido :is(.dato,.rotulo,.salon,.direccion,.sub,.cierre,.final){filter:brightness(.62)}
+.colores-corregidos :is(.dato,.rotulo,.salon,.direccion,.sub,.cierre,.final){filter:brightness(.62)}
 
 @media(max-width:380px){
   .nube-datos{
@@ -417,11 +409,11 @@ body:not(.recursos-listos) .escenario{opacity:0;visibility:hidden}
 
 <audio id="musica" src="assets/sonido.mp3" preload="auto" loop></audio>
 
-<button class="ajuste-samsung" id="ajusteSamsung" type="button" aria-label="Corregir colores en Samsung Internet" aria-pressed="false" hidden>
+<button class="ajuste-colores" id="ajusteColores" type="button" aria-label="Corregir colores" aria-pressed="false" hidden>
   <svg class="icono-corregir" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
     <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
   </svg>
-  <span class="ayuda-samsung">¿Se ve oscuro? Corregir</span>
+  <span class="ayuda-colores">¿Se ve oscuro? Corregir</span>
 </button>
 
 <div class="cielo" aria-hidden="true">
@@ -680,7 +672,7 @@ body:not(.recursos-listos) .escenario{opacity:0;visibility:hidden}
 /* Los datos de la fiesta viven en datos.js */
 const $ = (id) => document.getElementById(id);
 
-function crearNubeSamsung(){
+function crearNubeCorregida(){
   const canvas = document.createElement("canvas"), ctx = canvas.getContext("2d");
   canvas.width = 800;
   canvas.height = 560;
@@ -694,42 +686,36 @@ function crearNubeSamsung(){
   return canvas.toDataURL("image/png");
 }
 
-function prepararCorreccionSamsung(){
-  if(!/SamsungBrowser/i.test(navigator.userAgent)) return;
-  const boton = $("ajusteSamsung"), raiz = document.documentElement;
+function prepararCorreccionColores(){
+  const boton = $("ajusteColores"), raiz = document.documentElement;
   try{
-    const nubePng = crearNubeSamsung();
+    const nubePng = crearNubeCorregida();
     document.querySelectorAll(".cloud-card").forEach((tarjeta) => {
       const vector = tarjeta.querySelector(".cloud-vector");
       const imagen = document.createElement("img");
-      imagen.className = "cloud-shape samsung-cloud-png";
+      imagen.className = "cloud-shape nube-corregida-png";
       imagen.alt = "";
       imagen.setAttribute("aria-hidden","true");
       imagen.src = nubePng;
       vector.parentNode.insertBefore(imagen,vector.nextSibling);
     });
   }catch(_){
-    raiz.classList.remove("samsung-corregido");
-    try{ localStorage.removeItem("correccionSamsung"); }catch(_){}
+    raiz.classList.remove("colores-corregidos");
     return;
   }
 
-  const ayuda = boton.querySelector(".ayuda-samsung");
-  const activo = raiz.classList.contains("samsung-corregido");
-  boton.hidden = activo;
-  if(!activo){
-    boton.classList.add("mostrar-ayuda");
-    setTimeout(() => boton.classList.remove("mostrar-ayuda"),6000);
-  }
+  boton.hidden = false;
+  boton.classList.add("mostrar-ayuda");
+  setTimeout(() => boton.classList.remove("mostrar-ayuda"),6000);
   boton.addEventListener("click",() => {
-    raiz.classList.add("samsung-corregido");
-    try{ localStorage.setItem("correccionSamsung","1"); }catch(_){}
+    raiz.classList.add("colores-corregidos");
+    boton.setAttribute("aria-pressed","true");
     boton.classList.remove("mostrar-ayuda");
     boton.hidden = true;
   });
 }
 
-prepararCorreccionSamsung();
+prepararCorreccionColores();
 
 $("diaSemana").textContent = CONFIG.diaSemana;
 $("fechaTexto").textContent = CONFIG.fecha;
@@ -763,8 +749,8 @@ const escenario = $("escenario"), carta = $("carta"), escena = document.querySel
       salidaNubes = $("salidaNubes"),
       nubesSalida = salidaNubes.querySelectorAll("i"), musica = $("musica");
 
-const formaNubeActiva = (nube) => document.documentElement.classList.contains("samsung-corregido")
-  ? nube.querySelector(".samsung-cloud-png")
+const formaNubeActiva = (nube) => document.documentElement.classList.contains("colores-corregidos")
+  ? nube.querySelector(".nube-corregida-png")
   : nube.querySelector(".cloud-vector");
 
 const lento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
