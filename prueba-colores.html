@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="only light">
+<meta name="supported-color-schemes" content="light">
+<meta name="theme-color" content="#eceff4">
+<title>Prueba de colores · Samsung Internet</title>
+<style>
+:root{
+  color-scheme:only light;
+  --cielo-alto:#eceff4;
+  --cielo-medio:#f3eee9;
+  --cielo-bajo:#f7f1e8;
+  --tinta:#7b6551;
+  --cacao:#8a6c50;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:#f7f1e8;color:var(--tinta);color-scheme:only light}
+body{font-family:Arial,sans-serif;min-height:100vh;padding:18px 14px 48px}
+main{width:min(100%,720px);margin:auto}
+h1{font-size:24px;line-height:1.15;color:var(--cacao);margin:0 0 8px}
+.intro{font-size:15px;line-height:1.45;margin:0 0 14px}
+.diagnostico{background:#fffaf5;border:1px solid #d8c8b7;border-radius:12px;padding:12px;margin-bottom:18px}
+.diagnostico b{color:#6d5743}
+.diagnostico p{margin:5px 0;font-size:13px;line-height:1.4;overflow-wrap:anywhere}
+.estado{font-weight:700}
+.muestras{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.muestra{margin:0}
+.muestra figcaption{min-height:38px;margin:0 2px 6px;font-size:13px;font-weight:700;line-height:1.25;color:#6d5743}
+.panel{position:relative;isolation:isolate;overflow:hidden;aspect-ratio:4/5;border:1px solid rgba(123,101,81,.2);border-radius:14px;box-shadow:0 10px 24px -18px rgba(73,53,34,.55)}
+.cielo-css{background:
+  radial-gradient(120% 70% at 50% 0%,#e9eef4 0%,rgba(233,238,244,0) 62%),
+  radial-gradient(90% 50% at 12% 22%,rgba(226,233,241,.75) 0%,rgba(226,233,241,0) 60%),
+  linear-gradient(180deg,var(--cielo-alto) 0%,var(--cielo-medio) 42%,var(--cielo-bajo) 78%,#f8f2ea 100%)}
+.cielo-png{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.contenido{position:absolute;inset:0;display:grid;place-items:center;padding:10%}
+.nube-wrap{position:relative;width:100%;aspect-ratio:10/7;display:grid;place-items:center}
+.nube-svg,.nube-png,.nube-completa{position:absolute;inset:0;width:100%;height:100%}
+.nube-svg{overflow:visible;filter:drop-shadow(0 12px 12px rgba(122,94,66,.13))}
+.base{fill:#fffaf5}
+.luz{fill:rgba(255,255,255,.48)}
+.borde{fill:none;stroke:rgba(255,255,255,.72);stroke-width:3}
+.texto{position:relative;z-index:2;text-align:center;color:#7b6551;font-size:clamp(13px,3.8vw,18px);line-height:1.45;font-weight:700}
+.texto span{display:block;font-weight:400}
+.nota{margin:18px 0 0;font-size:14px;line-height:1.45}
+.solo{grid-column:1/-1;width:min(100%,342px);justify-self:center}
+#detector{position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;background-color:Canvas;color-scheme:light}
+@media(max-width:390px){body{padding-inline:10px}.muestras{gap:8px}.panel{border-radius:11px}.muestra figcaption{font-size:12px}}
+</style>
+</head>
+<body>
+<div id="detector" aria-hidden="true"></div>
+<main>
+  <h1>Prueba de fondo y nubes</h1>
+  <p class="intro">Abre esta página primero en modo claro y luego en modo oscuro. Toma una captura completa en cada modo.</p>
+
+  <section class="diagnostico" aria-label="Diagnóstico del navegador">
+    <p><b>Prueba:</b> <span class="estado">NUBES-2026-09-14-B</span></p>
+    <p><b>Preferencia detectada:</b> <span id="preferencia">calculando...</span></p>
+    <p><b>Colores forzados:</b> <span id="forzados">calculando...</span></p>
+    <p><b>Canvas del navegador:</b> <span id="canvas">calculando...</span></p>
+    <p><b>Navegador:</b> <span id="navegador">calculando...</span></p>
+  </section>
+
+  <section class="muestras" aria-label="Comparación de técnicas">
+    <figure class="muestra">
+      <figcaption>A · Fondo CSS + nube SVG + texto HTML</figcaption>
+      <div class="panel cielo-css"><div class="contenido"><div class="nube-wrap">
+        <svg class="nube-svg" viewBox="0 0 400 280" preserveAspectRatio="none" aria-hidden="true">
+          <path class="base" d="M48 212C20 202 12 174 29 151C9 124 20 90 52 80C52 48 82 25 116 35C138 8 180 7 207 31C237 8 279 20 292 51C327 44 357 64 360 96C390 108 397 142 377 165C390 194 368 222 338 228C321 258 281 266 254 246C228 274 181 276 153 248C122 270 83 259 72 231C63 230 55 225 48 212Z"/>
+          <path class="luz" d="M69 132C62 93 95 58 134 66C158 36 204 35 228 62C266 48 307 69 310 106C273 89 229 84 190 88C147 92 105 108 69 132Z"/>
+          <path class="borde" d="M50 211C22 200 15 175 31 153C12 125 23 93 54 83C55 53 84 30 117 40C141 14 178 14 205 36"/>
+        </svg>
+        <p class="texto">Domingo<span>04 de octubre · 3:00 PM</span></p>
+      </div></div></div>
+    </figure>
+
+    <figure class="muestra">
+      <figcaption>B · Fondo PNG + nube SVG + texto HTML</figcaption>
+      <div class="panel"><img class="cielo-png" data-png="cielo" alt=""><div class="contenido"><div class="nube-wrap">
+        <svg class="nube-svg" viewBox="0 0 400 280" preserveAspectRatio="none" aria-hidden="true">
+          <path class="base" d="M48 212C20 202 12 174 29 151C9 124 20 90 52 80C52 48 82 25 116 35C138 8 180 7 207 31C237 8 279 20 292 51C327 44 357 64 360 96C390 108 397 142 377 165C390 194 368 222 338 228C321 258 281 266 254 246C228 274 181 276 153 248C122 270 83 259 72 231C63 230 55 225 48 212Z"/>
+          <path class="luz" d="M69 132C62 93 95 58 134 66C158 36 204 35 228 62C266 48 307 69 310 106C273 89 229 84 190 88C147 92 105 108 69 132Z"/>
+        </svg>
+        <p class="texto">Domingo<span>04 de octubre · 3:00 PM</span></p>
+      </div></div></div>
+    </figure>
+
+    <figure class="muestra">
+      <figcaption>C · Fondo CSS + nube PNG + texto HTML</figcaption>
+      <div class="panel cielo-css"><div class="contenido"><div class="nube-wrap">
+        <img class="nube-png" data-png="nube" alt="">
+        <p class="texto">Domingo<span>04 de octubre · 3:00 PM</span></p>
+      </div></div></div>
+    </figure>
+
+    <figure class="muestra">
+      <figcaption>D · Fondo PNG + nube PNG + texto HTML</figcaption>
+      <div class="panel"><img class="cielo-png" data-png="cielo" alt=""><div class="contenido"><div class="nube-wrap">
+        <img class="nube-png" data-png="nube" alt="">
+        <p class="texto">Domingo<span>04 de octubre · 3:00 PM</span></p>
+      </div></div></div>
+    </figure>
+
+    <figure class="muestra solo">
+      <figcaption>E · Fondo PNG + nube y texto dentro del mismo PNG</figcaption>
+      <div class="panel"><img class="cielo-png" data-png="cielo" alt=""><div class="contenido"><div class="nube-wrap">
+        <img class="nube-completa" data-png="completa" alt="Nube con fecha y hora integradas en la imagen">
+      </div></div></div>
+    </figure>
+  </section>
+
+  <p class="nota"><b>Qué necesito ver:</b> si el cielo de B, D y E permanece claro; si las nubes PNG de C, D y E cambian; y si el texto integrado de E conserva contraste.</p>
+</main>
+
+<script>
+const forma = new Path2D("M48 212C20 202 12 174 29 151C9 124 20 90 52 80C52 48 82 25 116 35C138 8 180 7 207 31C237 8 279 20 292 51C327 44 357 64 360 96C390 108 397 142 377 165C390 194 368 222 338 228C321 258 281 266 254 246C228 274 181 276 153 248C122 270 83 259 72 231C63 230 55 225 48 212Z");
+
+function pngCielo(){
+  const c=document.createElement("canvas"),x=c.getContext("2d");
+  c.width=800;c.height=1000;
+  const g=x.createLinearGradient(0,0,0,c.height);
+  g.addColorStop(0,"#eceff4");g.addColorStop(.42,"#f3eee9");g.addColorStop(.78,"#f7f1e8");g.addColorStop(1,"#f8f2ea");
+  x.fillStyle=g;x.fillRect(0,0,c.width,c.height);
+  const r=x.createRadialGradient(400,0,0,400,0,760);
+  r.addColorStop(0,"rgba(233,238,244,.9)");r.addColorStop(1,"rgba(233,238,244,0)");
+  x.fillStyle=r;x.fillRect(0,0,c.width,c.height);
+  return c.toDataURL("image/png");
+}
+
+function pngNube(conTexto){
+  const c=document.createElement("canvas"),x=c.getContext("2d"),escala=2;
+  c.width=400*escala;c.height=280*escala;x.scale(escala,escala);
+  x.fillStyle="#fffaf5";x.fill(forma);
+  const luz=new Path2D("M69 132C62 93 95 58 134 66C158 36 204 35 228 62C266 48 307 69 310 106C273 89 229 84 190 88C147 92 105 108 69 132Z");
+  x.fillStyle="rgba(255,255,255,.48)";x.fill(luz);
+  if(conTexto){
+    x.textAlign="center";x.fillStyle="#7b6551";x.font="700 26px Arial";x.fillText("Domingo",200,133);
+    x.font="400 21px Arial";x.fillText("04 de octubre · 3:00 PM",200,166);
+  }
+  return c.toDataURL("image/png");
+}
+
+const imagenes={cielo:pngCielo(),nube:pngNube(false),completa:pngNube(true)};
+document.querySelectorAll("[data-png]").forEach(img=>{img.src=imagenes[img.dataset.png]});
+
+const oscuro=matchMedia("(prefers-color-scheme: dark)");
+document.querySelector("#preferencia").textContent=oscuro.matches?"oscura":"clara";
+document.querySelector("#forzados").textContent=matchMedia("(forced-colors: active)").matches?"activos":"inactivos";
+document.querySelector("#canvas").textContent=getComputedStyle(document.querySelector("#detector")).backgroundColor;
+document.querySelector("#navegador").textContent=navigator.userAgent;
+</script>
+</body>
+</html>
