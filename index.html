@@ -205,7 +205,7 @@ body:not(.recursos-listos) .escenario{opacity:0;visibility:hidden}
   border:0;
   box-shadow:none;
   backdrop-filter:none;
-  left:-14px;
+  left:0;
 }
 .dato{display:flex;align-items:center;gap:11px;text-align:left}
 .dato svg{width:21px;flex:none;color:var(--tostado)}
@@ -224,10 +224,9 @@ body:not(.recursos-listos) .escenario{opacity:0;visibility:hidden}
   overflow:visible;
 }
 
-/* Ritmo escalonado: las nubes alternan de lado sin parecer aleatorias. */
-.sitio > .tarjeta:nth-of-type(2){left:17px}
-.sitio > .tarjeta:nth-of-type(3){left:-12px}
-.sitio > .tarjeta:nth-of-type(4){left:14px}
+.sitio > .tarjeta:nth-of-type(2),
+.sitio > .tarjeta:nth-of-type(3),
+.sitio > .tarjeta:nth-of-type(4){left:0}
 .rotulo{display:flex;align-items:center;justify-content:center;gap:7px;font-size:14px;
   letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--cacao);margin:0 0 14px}
 .rotulo svg{width:18px;color:var(--tostado)}
@@ -365,14 +364,27 @@ body:not(.recursos-listos) .escenario{opacity:0;visibility:hidden}
 /* Variante manual para navegadores que alteran los colores de la página. */
 .colores-corregidos .cloud-vector{display:none}
 .colores-corregidos .nube-corregida-png{display:block;
-  filter:brightness(1.4) drop-shadow(0 18px 18px rgba(122,94,66,.13))}
+  filter:brightness(1.28) drop-shadow(0 18px 18px rgba(122,94,66,.13))}
 .colores-corregidos :is(.dato,.rotulo,.salon,.direccion,.sub,.cierre,.final){filter:brightness(.62)}
+.colores-corregidos .cielo::after{content:"";position:absolute;inset:-5%;z-index:2;opacity:.68;
+  background-image:
+    radial-gradient(circle,#fff8e7 0 1.2px,transparent 1.8px),
+    radial-gradient(circle,#dcecff 0 1px,transparent 1.7px),
+    radial-gradient(circle,#fffdf5 0 1.8px,transparent 2.5px);
+  background-size:83px 97px,137px 151px,211px 227px;
+  background-position:17px 23px,61px 79px,103px 41px;
+  filter:drop-shadow(0 0 3px rgba(255,248,225,.75));
+  animation:destellar-cielo 4.6s ease-in-out infinite alternate}
+@keyframes destellar-cielo{
+  from{opacity:.38;transform:translate3d(0,2px,0)}
+  to{opacity:.78;transform:translate3d(0,-2px,0)}
+}
 
 @media(max-width:380px){
   .nube-datos{
     width:min(78vw,275px);
     padding:35px 31px 30px;
-    left:-7px;
+    left:0;
   }
   .oso-foto{top:-49px;right:-32px;width:132px}
   .oso-ubicacion{top:-44px;left:-18px;width:96px}
@@ -381,9 +393,9 @@ body:not(.recursos-listos) .escenario{opacity:0;visibility:hidden}
     width:min(82vw,300px);
     padding:41px 24px 38px;
   }
-  .sitio > .tarjeta:nth-of-type(2){left:8px}
-  .sitio > .tarjeta:nth-of-type(3){left:-7px}
-  .sitio > .tarjeta:nth-of-type(4){left:6px}
+  .sitio > .tarjeta:nth-of-type(2),
+  .sitio > .tarjeta:nth-of-type(3),
+  .sitio > .tarjeta:nth-of-type(4){left:0}
 }
 
 @media(max-height:740px){
